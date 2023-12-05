@@ -1,0 +1,12 @@
+pipelineType: BuildPipelineV3
+projectType: sbt
+org: com.nclh
+artifact-name: nclh-akka-service
+name: nclh-akka-service
+confPath: src/main/resources
+dockerImage: nexus.nclmiami.ncl.com:8443/devops/buildme:12.18.3
+steps:
+  build:   sbt clean universal:packageZipTarball
+  test:    sbt clean coverage test coverageReport explodeCoverage scalastyle
+  publish: sbt publish rpm:publish universal:packageZipTarball
+  release: sbt 'release with-defaults'

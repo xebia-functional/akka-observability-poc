@@ -1,0 +1,23 @@
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <timestamp key="timestamp" datePattern="yyyy-MM-dd'_'HH:mm:ss z"/>
+    <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %-30(%cyan(%d{HH:mm:ss.SSS}) %green([%thread])) %highlight(%level) %white(%logger{32}) - %boldGreen(%msg) %X%n%boldRed(%exception)
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNCSTDOUT" class="ch.qos.logback.classic.AsyncAppender">
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="STDOUT" />
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="ASYNCSTDOUT" />
+    </root>
+
+</configuration>

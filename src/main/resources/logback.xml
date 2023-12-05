@@ -1,0 +1,81 @@
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <property name="LOG_HOME" value='/var/log/nclh-akka-service' />
+    <timestamp key="timestamp" datePattern="yyyy-MM-dd'_'HH:mm:ss z"/>
+    <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_HOME}/application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/application-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "timestamp": "%date{ISO8601}",
+                        "logger" : "%logger",
+                        "level" : "%level",
+                        "correlationId" : "%X{Correlation-ID}"
+                        "message" : "%message",
+                        "thread" : "%thread",
+                        "contextName" : "%contextName"
+                        }
+                    </pattern>
+                </pattern>
+                <stackHash />
+                <stackTrace>
+                    <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                        <maxDepthPerThrowable>30</maxDepthPerThrowable>
+                        <maxLength>4096</maxLength>
+                        <shortenedClassNameLength>20</shortenedClassNameLength>
+                        <rootCauseFirst>true</rootCauseFirst>
+                    </throwableConverter>
+                </stackTrace>
+                <throwableClassName />
+                <throwableRootCauseClassName />
+                <context />
+                <mdc />
+                <tags />
+                <logstashMarkers />
+                <arguments />
+                <uuid />
+            </providers>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %-30(%cyan(%d{HH:mm:ss.SSS}) %green([%thread])) with ID:%X{Correlation-ID} %highlight(%level) %white(%logger{32}) - %boldGreen(%msg) %X%n%boldRed(%exception)
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNCJSON" class="ch.qos.logback.classic.AsyncAppender">
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="JSON" />
+    </appender>
+
+    <appender name="ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="FILE" />
+    </appender>
+
+    <appender name="ASYNCSTDOUT" class="ch.qos.logback.classic.AsyncAppender">
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="STDOUT" />
+    </appender>
+
+    <root level="ERROR">
+        <appender-ref ref="ASYNCFILE" />
+        <appender-ref ref="ASYNCJSON" />
+        <appender-ref ref="ASYNCSTDOUT" />
+    </root>
+
+</configuration>

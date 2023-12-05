@@ -1,0 +1,32 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "$name$",
+        "description": "$name$ API",
+        "version": "#APP-VERSION#"
+    },
+    "paths": {
+        "/api/service/v1/sample": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {"type": "string"}
+                                }
+                            },
+                            "example": {
+                                "name": "John Doe"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
