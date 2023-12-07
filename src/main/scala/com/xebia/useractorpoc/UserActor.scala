@@ -1,16 +1,28 @@
 package com.xebia.useractorpoc
 
-import akka.actor.typed.Behavior
-import akka.actor.typed.ActorRef
+import akka.actor.typed.{ActorRef, ActorSystem, Behavior, SupervisorStrategy}
 import akka.actor.typed.scaladsl._
+import akka.cluster.sharding.typed.ShardingEnvelope
 import akka.persistence.typed.PersistenceId
 import akka.persistence.typed.scaladsl.{Effect, EventSourcedBehavior, RetentionCriteria}
+import akka.cluster.sharding.typed.scaladsl.ClusterSharding
+import akka.cluster.sharding.typed.scaladsl.Entity
+import akka.cluster.sharding.typed.scaladsl.EntityTypeKey
+
 import scala.concurrent.duration._
-import akka.actor.typed.SupervisorStrategy
 import akka.pattern.StatusReply
 
 
 object UserActor {
+
+  val TypeKey: EntityTypeKey[Command] =
+    EntityTypeKey[Command]("UserActor")
+
+  def initSharding(system: ActorSystem[_]): ActorRef[ShardingEnvelope[Command]] =
+    ClusterSharding(system).init(Entity(TypeKey) { entityContext =>
+      UserActor(entityContext.entityId)
+    })
+
   sealed trait Command
   final case class Add(number: String, replyTo: ActorRef[StatusReply[Summary]]) extends Command
   final case class Get(replyTo: ActorRef[Summary]) extends Command
@@ -47,8 +59,8 @@ object UserActor {
         replyTo ! state.toSummary
         Effect.none
       }
-      case Clear =>
-        Effect.persist(Cleared)
+      case Clear => Effect.persist(Cleared)
+      case Summary(_) => Effect.none
     }
   }
 
