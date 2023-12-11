@@ -5,6 +5,8 @@ resolvers := Resolver.combineDefaultResolvers(
             "NCL Nexxus (Ivy Style Pattern)",
             new java.net.URL("https://nexus.nclmiami.ncl.com/content/groups/public/")
         )(Resolver.ivyStylePatterns)
+      //,
+      // "Akka library repository".at("https://repo.akka.io/maven")
     ),
     mavenCentral = false
 )

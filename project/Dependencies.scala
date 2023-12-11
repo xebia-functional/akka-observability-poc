@@ -5,12 +5,16 @@ object Dependencies {
   object Version {
     val scalaLogging = "3.9.2"
     val logstashLogbackEncoder = "4.11"
-    val logback = "1.2.3"
+    val logback = "1.2.11"
     val nclCommonServer = "1.3.6"
     val nclCommonHttp = "1.0.20"
     val nclCommonTesting = "0.0.2"
     val mockito = "1.16.37"
     val scalaCheck = "1.15.2"
+
+    val akkaVersion = "2.9.0"
+    val akkaDiagnosticsVersion = "2.1.0"
+    val scalaTestVersion = "3.1.1"
   }
 
   val libraryDependencies = Seq(
@@ -22,9 +26,25 @@ object Dependencies {
     "com.ncl" %% "ncl-common-server" % Version.nclCommonServer,
     "com.ncl" %% "ncl-common-http" % Version.nclCommonHttp,
 
+    // akka
+    "com.typesafe.akka" %% "akka-actor-typed" % Version.akkaVersion,
+    "com.typesafe.akka" %% "akka-stream-kafka" % "5.0.0",
+    "com.typesafe.akka" %% "akka-stream" % Version.akkaVersion,
+    "com.typesafe.akka" %% "akka-persistence-typed" % Version.akkaVersion,
+    "com.typesafe.akka" %% "akka-serialization-jackson" % Version.akkaVersion,
+    "com.typesafe.akka" %% "akka-cluster-sharding-typed" % Version.akkaVersion,
+    "com.typesafe.akka" %% "akka-distributed-data" % Version.akkaVersion,
+    "com.lightbend.akka" %% "akka-diagnostics" % Version.akkaDiagnosticsVersion,
+
+    //monitoring
+    "com.newrelic.agent.java" %% "newrelic-scala-api" % "8.7.0",
+
     // Testing
     "com.ncl" %% "ncl-common-testing" % Version.nclCommonTesting,
     "org.mockito" %% "mockito-scala-scalatest" % Version.mockito % Test,
     "org.scalacheck" %% "scalacheck" % Version.scalaCheck % Test,
+
+    "com.typesafe.akka" %% "akka-actor-testkit-typed" % Version.akkaVersion % Test,
+    "org.scalatest" %% "scalatest" % Version.scalaTestVersion % Test
   )
 }

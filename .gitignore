@@ -23,3 +23,13 @@ conf/local.conf
 /src/main/resources/local.conf
 scalastyle-config.xml
 .scalafmt.conf
+/.bsp/
+target/
+
+.metals/
+.bloop/
+.idea/
+.vscode/
+
+**/metals.sbt
+.DS_Store
