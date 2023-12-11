@@ -19,8 +19,11 @@ lazy val root = (project in file("."))
       "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
       "com.typesafe.akka" %% "akka-persistence-typed" % AkkaVersion,
       "com.typesafe.akka" %% "akka-serialization-jackson" % AkkaVersion,
+      "com.typesafe.akka" %% "akka-cluster-sharding-typed" % AkkaVersion,
+      "com.typesafe.akka" %% "akka-distributed-data" % AkkaVersion,
       "com.lightbend.akka" %% "akka-diagnostics" % AkkaDiagnosticsVersion,
       "ch.qos.logback" % "logback-classic" % LogbackClassicVersion,
+      "com.newrelic.agent.java" %% "newrelic-scala-api" % "8.7.0",
       "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
       "org.scalatest" %% "scalatest" % ScalaTestVersion % Test
     ),
