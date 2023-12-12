@@ -15,6 +15,7 @@ object Dependencies {
     val akkaVersion = "2.9.0"
     val akkaDiagnosticsVersion = "2.1.0"
     val scalaTestVersion = "3.1.1"
+    val akkaStreamKafka = "5.0.0"
   }
 
   val libraryDependencies = Seq(
@@ -28,7 +29,7 @@ object Dependencies {
 
     // akka
     "com.typesafe.akka" %% "akka-actor-typed" % Version.akkaVersion,
-    "com.typesafe.akka" %% "akka-stream-kafka" % "5.0.0",
+    "com.typesafe.akka" %% "akka-stream-kafka" % Version.akkaStreamKafka,
     "com.typesafe.akka" %% "akka-stream" % Version.akkaVersion,
     "com.typesafe.akka" %% "akka-persistence-typed" % Version.akkaVersion,
     "com.typesafe.akka" %% "akka-serialization-jackson" % Version.akkaVersion,
@@ -36,7 +37,7 @@ object Dependencies {
     "com.typesafe.akka" %% "akka-distributed-data" % Version.akkaVersion,
     "com.lightbend.akka" %% "akka-diagnostics" % Version.akkaDiagnosticsVersion,
 
-    //monitoring
+    // monitoring
     "com.newrelic.agent.java" %% "newrelic-scala-api" % "8.7.0",
 
     // Testing
