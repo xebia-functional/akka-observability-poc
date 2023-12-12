@@ -3,7 +3,7 @@ package com.xebia.prodpoc
 import org.apache.kafka.clients.admin.{AdminClient, AdminClientConfig, NewTopic}
 
 import java.util.Properties
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
 
