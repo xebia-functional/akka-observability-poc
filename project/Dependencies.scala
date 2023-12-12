@@ -12,10 +12,10 @@ object Dependencies {
     val mockito = "1.16.37"
     val scalaCheck = "1.15.2"
 
-    val akkaVersion = "2.9.0"
-    val akkaDiagnosticsVersion = "2.1.0"
+    val akkaVersion = "2.6.18"
+    val akkaDiagnosticsVersion = "2.0.0"
     val scalaTestVersion = "3.1.1"
-    val akkaStreamKafka = "5.0.0"
+    val akkaStreamKafka = "3.0.0"
   }
 
   val libraryDependencies = Seq(
@@ -35,7 +35,7 @@ object Dependencies {
     "com.typesafe.akka" %% "akka-serialization-jackson" % Version.akkaVersion,
     "com.typesafe.akka" %% "akka-cluster-sharding-typed" % Version.akkaVersion,
     "com.typesafe.akka" %% "akka-distributed-data" % Version.akkaVersion,
-    "com.lightbend.akka" %% "akka-diagnostics" % Version.akkaDiagnosticsVersion,
+   // "com.lightbend.akka" %% "akka-diagnostics" % Version.akkaDiagnosticsVersion,
 
     // monitoring
     "com.newrelic.agent.java" %% "newrelic-scala-api" % "8.7.0",
